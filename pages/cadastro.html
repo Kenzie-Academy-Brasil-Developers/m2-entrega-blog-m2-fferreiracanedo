@@ -5,32 +5,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/styles/style.css">
+    <link rel="stylesheet" href="/src/styles/cadastroStyle.css">
     <title>Cadastro - Blog Kenzie</title>
 </head>
 
 <body>
+
 
     <h1>Cadastro</h1>
 
     <a class="link_cad" href="/index.html">Página Inicial</a>
     <a class="link_cad" href="/pages/login.html">Login</a>
 
-    <form #>
+
+
+
+    <form>
         <fieldset>
             <label for="nome"></label>
-            <input id="nome" type="text" placeholder="Nome de Usuário" name="name">
+            <input id="nome" type="text" placeholder="Nome de Usuário" name="name" required>
 
             <label for="email"></label>
-            <input id="email" t ype="email" placeholder="Email" name="email">
+            <input id="email" t ype="email" placeholder="Email" name="email" required>
 
             <label for="link_perfil"></label>
             <input id="link_perfil" type="text" placeholder="Foto de Perfil" name="link_perfil">
 
             <label for="password"></label>
-            <input id="password" type="password" placeholder="Senha" name="password">
+            <input id="password" type="password" placeholder="Senha" name="password" required>
 
-            <button class="cadastro">Cadastrar</button>
+            <button id="send_register" type="submit" class="cadastro">Cadastrar</button>
         </fieldset>
 
 
@@ -39,7 +43,7 @@
     </form>
 
 
-    <script type="module" src="/src/script.js"></script>
+    <script type="module" src="/pagesScript/cadastro.js"></script>
 </body>
 
 </html>
