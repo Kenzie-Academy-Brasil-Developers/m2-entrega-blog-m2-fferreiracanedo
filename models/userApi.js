@@ -1,18 +1,16 @@
 export class UserCadastro {
 
-
-
     static async createUser(e) {
-        e.preventDefault()
+        e.preventDefault();
 
         const endPointCadastro = "https://api-blog-m2.herokuapp.com/user/register"
 
         //variaves de dados do formulário
 
-        const nome = document.getElementById('nome').value
-        const email = document.getElementById('email').value
-        const url_img = document.getElementById('link_perfil').value
-        const password = document.getElementById('password').value
+        const nome = document.getElementById('nome').value;
+        const email = document.getElementById('email').value;
+        const url_img = document.getElementById('link_perfil').value;
+        const password = document.getElementById('password').value;
 
 
 
@@ -22,7 +20,7 @@ export class UserCadastro {
             avatarUrl: url_img,
             password: password
         }
-        const body_ok = JSON.stringify(body_cadastro)
+        const body_ok = JSON.stringify(body_cadastro);
 
         await fetch(endPointCadastro, {
                 "method": "POST",
@@ -35,7 +33,7 @@ export class UserCadastro {
 
             }).then(response => {
                 if (response.status === 201) {
-                    UserCadastro.teste()
+                    UserCadastro.teste();
                     window.location.href = "/pages/login.html"
                 }
             })
@@ -88,80 +86,43 @@ export class UserCadastro {
 
 
         await fetch(`https://api-blog-m2.herokuapp.com/post?${localStorage.getItem("blog:UserId")}`, {
-            "method": "GET",
-            "headers": {
-                "Authorization": `Bearer ${localStorage.getItem("blog:token")}`
-            }
+                "method": "GET",
+                "headers": {
+                    "Authorization": `Bearer ${localStorage.getItem("blog:token")}`
+                }
 
-        })
-
-
-
-
-        .then(response => response.json())
+            })
+            .then(response => response.json())
             .then(body => {
                 body.data.forEach(({ id, post, createdAt, owner }) => {
-                    const text_post = document.getElementById('text-post')
 
-                    // console.log(id)
+                    const text_post = document.getElementById('text-post');
+                    const input_btn = document.getElementById('edit_text');
+                    const post_user = document.createElement('div');
+                    const date_text = document.createElement('p');
+                    const btn_del = document.createElement('button');
+                    const btn_edit = document.createElement('button');
+                    const divBtn = document.createElement('div');
+                    post_user.classList.add('class-post');
 
+                    date_text.innerText = createdAt;
+                    btn_del.innerText = 'Deletar';
+                    btn_edit.innerText = 'Editar';
 
-
-
-
-
-
-                    const post_user = document.createElement('div')
-
-                    const post_owner = document.createElement('p')
-
-
-
-
-
-
-
-
-
-
-                    post_user.classList.add('class-post')
-
-                    const teste = document.createElement('p')
-                    teste.innerText = createdAt
+                    post_user.style.height = "180px";
+                    post_user.style.width = "601px";
 
                     post_user.innerHTML = `<img class="img-post" src="${owner.avatarUrl}"></img><div class="div-text"><h1>${owner.username}</h1><p>${post}</p></div>
                     `
+                    divBtn.classList.add('btn_div');
+                    btn_edit.classList.add('btn_user');
+                    btn_del.classList.add('btn_user');
 
-                    post_user.style.height = "180px"
-                    post_user.style.width = "601px"
-
-
-                    const btn_del = document.createElement('button')
-                    const btn_edit = document.createElement('button')
-
-
-
-
-
-                    const divBtn = document.createElement('div')
-
-                    divBtn.classList.add('btn_div')
-
-
-                    btn_edit.classList.add('btn_user')
-                    btn_del.classList.add('btn_user')
-
-
-
-                    btn_del.innerText = 'Deletar'
-                    btn_edit.innerText = 'Editar'
-
-                    divBtn.appendChild(btn_del)
-                    divBtn.appendChild(btn_edit)
-
-
-                    post_user.appendChild(divBtn)
-                    divBtn.appendChild(teste)
+                    divBtn.appendChild(btn_del);
+                    divBtn.appendChild(btn_edit);
+                    post_user.appendChild(divBtn);
+                    divBtn.appendChild(date_text);
+                    text_post.appendChild(post_user);
 
                     if (owner.id === localStorage.getItem("blog:UserId")) {
 
@@ -171,93 +132,62 @@ export class UserCadastro {
                         btn_edit.style.color = '#6495ED'
                         btn_del.style.color = '#ED6464'
 
-
                         btn_del.addEventListener('click', e => {
                             this.deletePost(id)
                         })
 
                         btn_edit.addEventListener('click', e => {
-                            console.log(id)
-                            this.editarPost(id)
+                            const modal = document.getElementById('dv-modal')
+                            modal.classList.remove('btn_user')
 
                         })
 
+                        input_btn.addEventListener('click', e => {
+                            const modal = document.getElementById('dv-modal')
+
+                            this.editarPost(id)
+                            modal.classList.add('btn_user')
 
 
-                        // post_user.appendChild(btn_edit)
+                            document.location.reload()
 
-
-                    }
-
-                    // imagem_post.appendChild(post_user_img)
-
-                    text_post.appendChild(post_user)
-
-
-
-                    if (owner.id === localStorage.getItem("blog:UserId")) {
-                        // console.log(id)
-
-
-                        // const teste = document.getElementById('post-ind').innerText
-                        // console.log(teste)
-
+                        })
 
                     }
 
-
-
-                })
-
-            })
-
-
-
+                });
+            });
     }
 
-    static async criarPost() {
+    static criarPost() {
+        const btn_post_add = document.getElementById('btn_add');
+        const text_post = document.getElementById('txt-post');
+        const texto_input = document.getElementById('txt-post').value;
+        const token = localStorage.getItem("blog:token");
+        const formatted_Token = `Bearer ${token}`;
 
-        window.alert('POST CRIADO COM SUCESSO!')
-
-
-
-
-        const text_post = document.getElementById('txt-post')
-
-
-        UserCadastro.listarPost()
-        text_post.innerText = ""
-
-        const texto_input = document.getElementById('txt-post').value
-
+        UserCadastro.listarPost();
 
         let body_text = {
             content: texto_input
         }
-        const bodyJson = JSON.stringify(body_text)
 
-        const token = localStorage.getItem("blog:token")
-
-        const formatted_Token = `Bearer ${token}`
+        const bodyJson = JSON.stringify(body_text);
 
 
+        fetch(`https://api-blog-m2.herokuapp.com/post`, {
+                "method": "POST",
+                "headers": {
+                    "Authorization": formatted_Token,
+                    "Content-type": "application/json"
+                },
+                body:
 
-
-
-        const dados = await fetch(`https://api-blog-m2.herokuapp.com/post`, {
-            "method": "POST",
-            "headers": {
-                "Authorization": formatted_Token,
-                "Content-type": "application/json"
-            },
-            body:
-
-                bodyJson
-        })
-
-        .then(res => res.json())
+                    bodyJson
+            })
+            .then(res => res.json())
             .then(data => {
-                let id_post = data.owner
+                let id_post = data.owner;
 
                 fetch(`https://api-blog-m2.herokuapp.com/post/?${id_post}`, {
                         "method": "GET",
@@ -267,31 +197,25 @@ export class UserCadastro {
                         }
                     })
                     .then(res => res.json())
-
-
             })
-
-
-
 
         .catch(err => console.error(err));
 
 
-        const btn_post_add = document.getElementById('btn_add')
 
         btn_post_add.addEventListener('click', e => {
             location.reload(true)
         })
+        window.alert('POST CRIADO COM SUCESSO!');
 
-
+        window.location.reload();
     }
 
-
-    static async deletePost(id) {
+    static deletePost(id) {
 
         const token = localStorage.getItem("blog:token")
 
-        const formatted_Token = `Bearer ${token}`
+        const formatted_Token = `Bearer ${token}`;
 
         fetch(`https://api-blog-m2.herokuapp.com/post/${id}`, {
             "method": "DELETE",
@@ -303,24 +227,28 @@ export class UserCadastro {
         .then(response => {
                 if (response.status === 204) {
                     window.alert('Post Deletado com Sucesso!')
+
+
+                    document.location.reload()
                 }
             })
             .catch(err => console.error(err));
     }
-    static async editarPost(id) {
+    static editarPost(id) {
 
+        const buttonInput = document.getElementById('edit-input').value;
 
-        const token = localStorage.getItem("blog:token")
+        const token = localStorage.getItem("blog:token");
 
-        const formatted_Token = `Bearer ${token}`
+        const formatted_Token = `Bearer ${token}`;
 
         const texto = {
-            newContent: 'burro define a minha vida'
+            newContent: buttonInput
         }
 
 
 
-        const response = await fetch(`https://api-blog-m2.herokuapp.com/post/${id}`, {
+        fetch(`https://api-blog-m2.herokuapp.com/post/${id}`, {
             "method": "PATCH",
             "headers": {
                 "Authorization": formatted_Token,
@@ -330,22 +258,18 @@ export class UserCadastro {
 
 
         })
-        const data = await response.json()
-        console.log(data)
+
 
 
 
     }
 
-    static async renderUser() {
-
+    static renderUser() {
         const userId = localStorage.getItem('blog:UserId')
-
         const token = localStorage.getItem("blog:token")
-
         const formatted_Token = `Bearer ${token}`
 
-        const data = await fetch(`https://api-blog-m2.herokuapp.com/user/${userId}`, {
+        fetch(`https://api-blog-m2.herokuapp.com/user/${userId}`, {
                 "method": "GET",
                 "headers": {
                     "Authorization": formatted_Token
@@ -353,16 +277,16 @@ export class UserCadastro {
             })
             .then(res => res.json())
             .then(data => {
-                const avatarName = document.getElementById('name-user')
-                avatarName.innerHTML = `<h1 class="avatar-position">${data.username}<h1>`
+                const avatarName = document.getElementById('name-user');
+                avatarName.innerHTML = `<h1 class="avatar-position">${data.username}<h1>`;
 
-                const img = document.createElement('img')
-                img.classList.add('avatar')
-                img.src = data.avatarUrl
+                const img = document.createElement('img');
+                img.classList.add('avatar');
+                img.src = data.avatarUrl;
 
 
-                avatarName.appendChild(img)
+                avatarName.appendChild(img);
 
-            })
+            });
     }
 }

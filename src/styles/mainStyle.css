@@ -31,10 +31,11 @@ a {
 }
 
 button {
+    border: none;
     border-radius: 5px;
     color: #fff;
     background-color: #EDBC64;
-    width: 50px;
+    width: 231px;
     height: 30px;
     margin-right: 20px;
     margin-top: 10px;

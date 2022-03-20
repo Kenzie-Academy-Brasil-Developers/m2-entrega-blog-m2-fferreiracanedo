@@ -235,3 +235,27 @@ a {
 .btn_user {
     visibility: hidden;
 }
+
+.modal {
+    border-radius: 10px;
+    border-radius: 10px;
+    width: 600px;
+    background-color: rgb(201, 53, 53);
+    position: fixed;
+    top: 172px;
+    left: 359px;
+    height: 187px;
+}
+
+.modal>p {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.modal>input {
+    width: 300px;
+    margin-left: 149px;
+    /* text-align: center; */
+    margin-top: 45px;
+    height: 20px;
+}
