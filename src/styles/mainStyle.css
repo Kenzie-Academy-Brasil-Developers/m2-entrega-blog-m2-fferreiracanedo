@@ -13,8 +13,12 @@ nav {
 
 body {
     color: #fff;
-    background-color: rgb(98, 98, 226);
-    font-family: 'Poppins', sans-serif;
+    background-color: #6495ED;
+    font-family: 'Montserrat';
+}
+
+span {
+    margin-right: -170px;
 }
 
 h1 {
@@ -27,13 +31,13 @@ a {
 }
 
 button {
-    margin: 5px;
-    padding: 10px;
-    border: none;
-    width: 100px;
-    height: 40px;
-    border-radius: 10px;
-    background-color: rgb(79, 79, 209);
+    border-radius: 5px;
+    color: #fff;
+    background-color: #EDBC64;
+    width: 50px;
+    height: 30px;
+    margin-right: 20px;
+    margin-top: 10px;
 }
 
 button:hover {
@@ -60,11 +64,7 @@ input {
     margin: 5px;
 }
 
-input[placeholder] {
-    text-align: left;
-    font-size: 12px;
-    font-family: 'Poppins', sans-serif;
-}
+input[placeholder] {}
 
 .cadastro {
     margin-top: 20px;
@@ -81,5 +81,12 @@ input[placeholder] {
 
 h2 {
     text-align: center;
+    margin-bottom: 10px;
+}
+
+.container-one {
+    display: flex;
+    margin-left: 152px;
+    flex-direction: column-reverse;
     margin-bottom: 10px;
 }

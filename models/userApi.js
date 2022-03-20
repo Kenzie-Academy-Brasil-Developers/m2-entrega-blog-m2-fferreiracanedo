@@ -22,17 +22,24 @@ export class UserCadastro {
             avatarUrl: url_img,
             password: password
         }
+        const body_ok = JSON.stringify(body_cadastro)
 
         await fetch(endPointCadastro, {
-            "method": "POST",
-            "headers": {
-                "Content-Type": "application/json"
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json"
 
 
-            },
-            "body": JSON.stringify(body_cadastro),
+                },
+                "body": body_ok,
 
-        }).then(response => console.log(response)).catch(err => console.error(err));
+            }).then(response => {
+                if (response.status === 201) {
+                    UserCadastro.teste()
+                    window.location.href = "/pages/login.html"
+                }
+            })
+            .catch(err => console.error(err));
     }
 
     static async loginUser(e) {
@@ -62,7 +69,9 @@ export class UserCadastro {
                 localStorage.setItem("blog:UserId", data.userId)
 
                 if (data.token) {
+
                     window.location.href = "/pages/paginaUser.html"
+
                 } else {
                     window.alert('erro nas credenciais, por favor verificar os dados corretamente')
                 }
@@ -72,8 +81,6 @@ export class UserCadastro {
             })
 
 
-        // console.log(token)
-        // .catch(err =>);
 
     }
 
@@ -94,7 +101,6 @@ export class UserCadastro {
         .then(response => response.json())
             .then(body => {
                 body.data.forEach(({ id, post, createdAt, owner }) => {
-                    const imagem_post = document.getElementById('image-post')
                     const text_post = document.getElementById('text-post')
 
                     // console.log(id)
@@ -106,59 +112,87 @@ export class UserCadastro {
 
 
                     const post_user = document.createElement('div')
-                    const post_user_img = document.createElement('img')
+
                     const post_owner = document.createElement('p')
 
-                    // t = document.getElementById('teste')
 
 
 
 
 
 
-                    post_user_img.src = owner.avatarUrl
-                    post_user_img.width = "100"
-                    post_user_img.height = "100"
+
+
+
                     post_user.classList.add('class-post')
 
-                    post_user.innerHTML = `<span>${createdAt}</span>
-                    <p>${post}</p>
-                    <p>${owner.username}</p>
+                    const teste = document.createElement('p')
+                    teste.innerText = createdAt
+
+                    post_user.innerHTML = `<img class="img-post" src="${owner.avatarUrl}"></img><div class="div-text"><h1>${owner.username}</h1><p>${post}</p></div>
                     `
 
+                    post_user.style.height = "180px"
+                    post_user.style.width = "601px"
+
+
+                    const btn_del = document.createElement('button')
+                    const btn_edit = document.createElement('button')
 
 
 
 
-                    const teste = document.getElementById('post-ind')
-                        // console.log(teste)
+
+                    const divBtn = document.createElement('div')
+
+                    divBtn.classList.add('btn_div')
+
+
+                    btn_edit.classList.add('btn_user')
+                    btn_del.classList.add('btn_user')
+
+
+
+                    btn_del.innerText = 'Deletar'
+                    btn_edit.innerText = 'Editar'
+
+                    divBtn.appendChild(btn_del)
+                    divBtn.appendChild(btn_edit)
+
+
+                    post_user.appendChild(divBtn)
+                    divBtn.appendChild(teste)
+
                     if (owner.id === localStorage.getItem("blog:UserId")) {
 
-                        // const text_post = document.getElementById('text-post')
-                        const btn_del = document.createElement('button')
-                        const btn_edit = document.createElement('button')
-                        btn_del.innerText = 'Deletar'
-                        btn_edit.innerText = 'Editar'
+                        btn_edit.classList.remove('btn_user')
+                        btn_del.classList.remove('btn_user')
+
+                        btn_edit.style.color = '#6495ED'
+                        btn_del.style.color = '#ED6464'
+
 
                         btn_del.addEventListener('click', e => {
                             this.deletePost(id)
                         })
 
                         btn_edit.addEventListener('click', e => {
-
+                            console.log(id)
                             this.editarPost(id)
+
                         })
 
 
-                        post_user.appendChild(btn_del)
-                        post_user.appendChild(btn_edit)
+
+                        // post_user.appendChild(btn_edit)
 
 
                     }
 
                     // imagem_post.appendChild(post_user_img)
+
                     text_post.appendChild(post_user)
-                    post_user.appendChild(post_user_img)
+
 
 
                     if (owner.id === localStorage.getItem("blog:UserId")) {
@@ -225,7 +259,6 @@ export class UserCadastro {
             .then(data => {
                 let id_post = data.owner
 
-
                 fetch(`https://api-blog-m2.herokuapp.com/post/?${id_post}`, {
                         "method": "GET",
                         "headers": {
@@ -276,27 +309,60 @@ export class UserCadastro {
     }
     static async editarPost(id) {
 
+
         const token = localStorage.getItem("blog:token")
 
         const formatted_Token = `Bearer ${token}`
 
-        fetch(`https://api-blog-m2.herokuapp.com/post/${id}`, {
+        const texto = {
+            newContent: 'burro define a minha vida'
+        }
+
+
+
+        const response = await fetch(`https://api-blog-m2.herokuapp.com/post/${id}`, {
             "method": "PATCH",
             "headers": {
                 "Authorization": formatted_Token,
-                "Content-Type": "application/json"
+                "Content-type": "application/json"
             },
-            "body": {
-                "newContent": "Testando o Patch"
-            }
-        })
+            "body": JSON.stringify(texto)
 
-        .then(response => {
-                if (response.status === 204) {
-                    window.alert('Post Deletado com Sucesso!')
-                }
-            })
-            .catch(err => console.error(err));
+
+        })
+        const data = await response.json()
+        console.log(data)
+
+
+
     }
 
+    static async renderUser() {
+
+        const userId = localStorage.getItem('blog:UserId')
+
+        const token = localStorage.getItem("blog:token")
+
+        const formatted_Token = `Bearer ${token}`
+
+        const data = await fetch(`https://api-blog-m2.herokuapp.com/user/${userId}`, {
+                "method": "GET",
+                "headers": {
+                    "Authorization": formatted_Token
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                const avatarName = document.getElementById('name-user')
+                avatarName.innerHTML = `<h1 class="avatar-position">${data.username}<h1>`
+
+                const img = document.createElement('img')
+                img.classList.add('avatar')
+                img.src = data.avatarUrl
+
+
+                avatarName.appendChild(img)
+
+            })
+    }
 }

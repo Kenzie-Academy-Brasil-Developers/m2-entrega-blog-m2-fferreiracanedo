@@ -1,20 +1,19 @@
 * {
     margin: 0;
     padding: 0;
-    list-style: none;
+    list-style-type: none;
     text-decoration: none;
 }
 
 nav {
-    display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 body {
     color: #fff;
-    background-color: rgb(98, 98, 226);
-    font-family: 'Poppins', sans-serif;
+    background-color: #6495ED;
+    font-family: 'Montserrat', sans-serif;
 }
 
 h1 {
@@ -23,19 +22,27 @@ h1 {
 }
 
 a {
-    margin: 10px;
+    position: relative;
     color: #fff;
+    top: -30px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.cadastro {
+    margin-top: 24px;
 }
 
 button {
+    left: -58px;
     color: #fff;
-    margin: 5px;
-    padding: 10px;
     border: none;
-    width: 100px;
-    height: 40px;
+    width: 132px;
+    height: 42px;
     border-radius: 10px;
-    background-color: rgb(79, 79, 209);
+    background-color: #EDBC64;
 }
 
 button:hover {
@@ -45,33 +52,32 @@ button:hover {
 form {
     margin-top: 10px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 fieldset {
-    border: none;
     display: flex;
     flex-direction: column;
-    width: 600px;
 }
 
 input {
-    border-radius: 5px;
-    margin: 10px;
+    border-radius: 4px;
     border: none;
-    height: 40px;
+    width: 50%;
+    height: 42px;
     margin: 5px;
 }
 
 input[placeholder] {
+    padding-left: 10px;
     text-align: left;
-    font-size: 12px;
-    font-family: 'Poppins', sans-serif;
 }
 
-.cadastro {
-    margin-top: 20px;
-    margin-left: 40%;
+input:focus {
+    outline: none !important;
+    border: 1px solid rgb(33, 224, 208);
+    box-shadow: 0 0 10px #719ECE;
 }
 
 .link_cad {

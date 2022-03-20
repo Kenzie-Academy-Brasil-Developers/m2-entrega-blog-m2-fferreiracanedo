@@ -6,15 +6,19 @@
 }
 
 nav {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     align-items: center;
 }
 
+#container-button {
+    text-align: center;
+}
+
 body {
     color: #fff;
-    background-color: rgb(98, 98, 226);
-    font-family: 'Poppins', sans-serif;
+    background-color: #6495ED;
+    font-family: 'Montserrat', sans-serif;
 }
 
 h1 {
@@ -23,19 +27,29 @@ h1 {
 }
 
 a {
-    margin: 10px;
+    position: relative;
+    /* margin-top: -45px; */
+    /* margin: 10px; */
     color: #fff;
+    top: -30px;
 }
 
 button {
+    position: relative;
+    left: -52px;
+    /* display: flex; */
+    position: relative;
+    margin-left: 19px;
     color: #fff;
-    margin: 5px;
-    padding: 10px;
+    /* margin: 5px; */
+    /* padding: 10px; */
     border: none;
-    width: 100px;
-    height: 40px;
+    width: 132px;
+    height: 42px;
     border-radius: 10px;
-    background-color: rgb(79, 79, 209);
+    background-color: #EDBC64;
+    justify-content: center;
+    align-items: center;
 }
 
 button:hover {
@@ -45,28 +59,32 @@ button:hover {
 form {
     margin-top: 10px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 fieldset {
-    border: none;
     display: flex;
     flex-direction: column;
-    width: 600px;
 }
 
 input {
-    border-radius: 5px;
-    margin: 10px;
+    border-radius: 4px;
     border: none;
-    height: 40px;
+    width: 50%;
+    height: 42px;
     margin: 5px;
 }
 
 input[placeholder] {
+    padding-left: 10px;
     text-align: left;
-    font-size: 12px;
-    font-family: 'Poppins', sans-serif;
+}
+
+input:focus {
+    outline: none !important;
+    border: 1px solid rgb(33, 224, 208);
+    box-shadow: 0 0 10px #719ECE;
 }
 
 .cadastro {

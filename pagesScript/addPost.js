@@ -1,5 +1,5 @@
 import { UserCadastro } from "../models/userApi.js";
-
+UserCadastro.renderUser()
 
 const add_post = document.getElementById('btn_add')
 const deletar_post = document.querySelector('button')

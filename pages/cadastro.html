@@ -6,36 +6,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/src/styles/cadastroStyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,400;1,100;1,200&display=swap" rel="stylesheet">
     <title>Cadastro - Blog Kenzie</title>
 </head>
 
 <body>
 
+    <nav>
+        <h1>Cadastro</h1>
 
-    <h1>Cadastro</h1>
+        <a class="link_cad" href="/index.html">Página Inicial</a>
+        <a class="link_cad" href="/pages/login.html">Login</a>
+    </nav>
 
-    <a class="link_cad" href="/index.html">Página Inicial</a>
-    <a class="link_cad" href="/pages/login.html">Login</a>
+
 
 
 
 
     <form>
-        <fieldset>
-            <label for="nome"></label>
-            <input id="nome" type="text" placeholder="Nome de Usuário" name="name" required>
 
-            <label for="email"></label>
-            <input id="email" t ype="email" placeholder="Email" name="email" required>
+        <label for="nome"></label>
+        <input id="nome" type="text" placeholder="Nome de Usuário" name="name" required>
 
-            <label for="link_perfil"></label>
-            <input id="link_perfil" type="text" placeholder="Foto de Perfil" name="link_perfil">
+        <label for="email"></label>
+        <input id="email" t ype="email" placeholder="Email" name="email" required>
 
-            <label for="password"></label>
-            <input id="password" type="password" placeholder="Senha" name="password" required>
+        <label for="link_perfil"></label>
+        <input id="link_perfil" type="text" placeholder="Foto de Perfil" name="link_perfil">
 
+        <label for="password"></label>
+        <input id="password" type="password" placeholder="Senha" name="password" required>
+
+        <div id="container-button">
             <button id="send_register" type="submit" class="cadastro">Cadastrar</button>
-        </fieldset>
+
+        </div>
+
 
 
 
